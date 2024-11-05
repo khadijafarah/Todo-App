@@ -4,8 +4,9 @@ import notAvail from "../../assets/Images/notavail.png";
 import { FaPenAlt } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-const TodosTable = () => {
-  const { todos, email, deleteTodo, editTodo } = useContext(ToDoCreateContext);
+const TodosTable = ({todos}) => {
+  
+  const { email, deleteTodo, editTodo } = useContext(ToDoCreateContext);
   const [taskName, setTaskName] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -32,20 +33,12 @@ const TodosTable = () => {
       time: time,
       status: "pending",
     };
-    // Call the editTodo function with updated values
     editTodo(editingTodoId, todo);
-    
-    // Clear input fields and reset editing state
+
     setTaskName("");
     setDate("");
     setTime("");
     setEditingTodoId(null);
-    
-    // Close the modal by manually triggering the close event
-    const modalCloseBtn = document.querySelector(".btn-close");
-    if (modalCloseBtn) {
-      modalCloseBtn.click();
-    }
   };
 
   return (
@@ -76,21 +69,21 @@ const TodosTable = () => {
                   {todo.date} <br /> {todo.time}
                 </td>
                 <td>
-                  <div>
+                
                     <button
                       type="button"
-                      className="btn btn-primary"
+                      className="btn btn-primary mx-2"
                       data-bs-toggle="modal"
-                      data-bs-target="#exampleModal"
-                      onClick={() => handleEdit(todo)} // Pass the todo to handleEdit
+                      data-bs-target="#editModal"
+                      onClick={() => handleEdit(todo)}
                     >
                       <FaPenAlt />
                     </button>
 
-                    {/* Modal */}
+                 
                     <div
                       className="modal fade"
-                      id="exampleModal"
+                      id="editModal"
                       tabIndex={-1}
                       aria-labelledby="exampleModalLabel"
                       aria-hidden="true"
@@ -149,7 +142,12 @@ const TodosTable = () => {
                               </div>
                             </div>
                             <div className="modal-footer">
-                              <button type="submit" className="btn btn-primary">
+                              <button
+                                type="submit"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                                className="btn btn-primary"
+                              >
                                 Update
                               </button>
                             </div>
@@ -157,7 +155,7 @@ const TodosTable = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+              
                   <button
                     className="btn btn-danger"
                     onClick={() => {
@@ -188,4 +186,3 @@ const TodosTable = () => {
 };
 
 export default TodosTable;
-

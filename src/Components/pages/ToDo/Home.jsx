@@ -1,8 +1,11 @@
 
+import { useContext } from "react";
 import TodosTable from "../TodosTable";
 import ToDo from "./ToDo";
+import { ToDoCreateContext } from "../TodoContext";
 
 const Home = () => {
+  const {todos} = useContext(ToDoCreateContext)
   return (
    <>
     <div className="container nav-box py-5">
@@ -11,7 +14,7 @@ const Home = () => {
      </div>
     </div>
     <ToDo></ToDo>
-    <TodosTable></TodosTable>
+    <TodosTable todos={todos}></TodosTable>
    </>
   )
 }

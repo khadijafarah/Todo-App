@@ -7,7 +7,7 @@ const ToDo = () => {
   const [taskName, setTaskName] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const {addTodo} = useContext(ToDoCreateContext);
+  const { addTodo } = useContext(ToDoCreateContext);
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -26,7 +26,7 @@ const ToDo = () => {
   //   } catch (error) {
   //     existingTodos = []; // Default to an empty array if JSON parsing fails
   //   }
-    
+
   //   console.log(todo);
   //   const todosString = JSON.stringify(todo);
   //   existingTodos.push(todosString);
@@ -35,7 +35,7 @@ const ToDo = () => {
 
   //  console.log(existingTodos);
   // };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const todo = {
@@ -46,28 +46,30 @@ const ToDo = () => {
       status: "pending",
     };
 
-    addTodo(todo)
-  
+    addTodo(todo);
+
+    setTaskName("");
+    setDate("");
+    setTime("");
+
     // Retrieve existing todos from local storage or initialize as an empty array
     // let existingTodos;
-     
+
     //   existingTodos = JSON.parse(localStorage.getItem('todos')) || [];
     //   if (!Array.isArray(existingTodos)) {
     //     existingTodos = []; // Ensure it's an array
-      
-    // }  
-    
+
+    // }
+
     // // Add the new todo directly to the existing todos array
     // existingTodos.push(todo);
-  
+
     // // Save the updated todos array back to local storage as a string
     // // localStorage.setItem('todos', JSON.stringify(existingTodos));
-     
+
     // // Notify the user
     // toast.success('Successfully added!');
-  
   };
-  
 
   return (
     <div className="container">
@@ -210,7 +212,12 @@ const ToDo = () => {
                     </div>
                   </div>
                   <div className="modal-footer">
-                    <button type="submit" className="btn btn-primary">
+                    <button
+                      type="submit"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                      className="btn btn-primary"
+                    >
                       Add
                     </button>
                   </div>
