@@ -6,43 +6,44 @@ import { TiMail } from "react-icons/ti";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
 import { MdOutlineLock } from "react-icons/md";
-import { Link,useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import axios from "axios";
+import Verification from "./Verification";
 
 
 const SignUp = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [isOtpSend, setIsOtpSend] = useState(false);
-  const [otp, setOtp] = useState("");
+  // const [otp, setOtp] = useState("");
   // const navigate = useNavigate();
 
 
 
-  const handleOTP = async (e) => {
-    e.preventDefault();
-    try {
-      const data = {
-        otp,
-        email,
-      };
-  console.log(data);
-      const response = await axios.post(
-        "https://staging-be-ecom.techserve4u.com/api/user/verifyotp",
-        data
-      );
-      console.log("otp", response);
-      if(response.data.token){
-        localStorage.setItem("token",response.data.token)
-        navigate("/sign-in");
+  // const handleOTP = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const data = {
+  //       otp,
+  //       email,
+  //     };
+  // console.log(data);
+  //     const response = await axios.post(
+  //       "https://staging-be-ecom.techserve4u.com/api/user/verifyotp",
+  //       data
+  //     );
+  //     console.log("otp", response);
+  //     if(response.data.token){
+  //       localStorage.setItem("token",response.data.token)
+  //       navigate("/sign-in");
 
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  //     }
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
   const onFinish = async(values) => {
     const data = {
       name :values.name,
@@ -71,20 +72,8 @@ const SignUp = () => {
   return (
     <div className="signup-container">
       {isOtpSend ? (
-        <div className="login-form-box">
-          <h2>Verify OTP</h2>
-          <form onSubmit={handleOTP} className="login-form">
-            <div className="form-group">
-              <input
-                type="text"
-                placeholder="Enter OTP"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit">Send & Verify</button>
-          </form>
+        <div>
+          <Verification email={email}></Verification>
         </div>
       ) : (
         <div className="signup-form-container">
@@ -175,13 +164,11 @@ const SignUp = () => {
             <input type="checkbox" className="mx-2" />
             <label>Keep signed in to stay connected</label>
             <button className="form-btn my-3">Sign Up</button>
-            <p className="text-center my-3">
-              Already have an account? <Link to="/sign-in">Sign In</Link>
-            </p>
-            <p className="text-center my-3">
-              By clicking, Sign In , You agree to our Terms of <br /> Use and
+            <p className="text-center my-5">
+              Already have an account? <Link to="/sign-in">Sign In</Link> <br /> By clicking, Sign In , You agree to our Terms of <br /> Use and
               Privacy Policy
             </p>
+
           </Form>
         </div>
       )}

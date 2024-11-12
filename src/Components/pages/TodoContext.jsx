@@ -13,11 +13,9 @@ const TodoContext = ({ children }) => {
     const existingTodos = JSON.parse(localStorage.getItem("todos")) || [];
     setTodos(existingTodos);
   }, []);
-  // useEffect(() => {
-  //   localStorage.setItem("todos", JSON.stringify(todos));
-  // }, [todos]);
+  
 
- 
+
 const addTodo = (todo) => {
   let existingTodos = JSON.parse(localStorage.getItem("todos")) || [];
   if (!Array.isArray(existingTodos)) {
@@ -57,9 +55,17 @@ const addTodo = (todo) => {
     );
     setTodos(updatedTodos); 
   };
+  const updateTodoStatus = (id, newStatus) => {
+    const updatedTodos = todos.map((todo) => 
+      todo.id === id ? { ...todo, status: newStatus } : todo
+    );
+    setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos)); // Update local storage
+  };
 
-  const contextValue = { todos, email, deleteTodo, addTodo, editTodo};
 
+
+  const contextValue = { todos, email, deleteTodo, addTodo, editTodo , updateTodoStatus};
 
 
   return (

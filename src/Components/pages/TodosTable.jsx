@@ -1,12 +1,13 @@
+/* eslint-disable react/prop-types */
 import { useContext, useState } from "react";
 import { ToDoCreateContext } from "./TodoContext";
 import notAvail from "../../assets/Images/notavail.png";
 import { FaPenAlt } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-const TodosTable = ({todos}) => {
-  
-  const { email, deleteTodo, editTodo } = useContext(ToDoCreateContext);
+const TodosTable = ({ todos }) => {
+  const { email, deleteTodo, editTodo, updateTodoStatus } =
+    useContext(ToDoCreateContext);
   const [taskName, setTaskName] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -40,6 +41,10 @@ const TodosTable = ({todos}) => {
     setTime("");
     setEditingTodoId(null);
   };
+  const handleStatusChange = (id, currentStatus) => {
+    const newStatus = currentStatus === "pending" ? "completed" : "pending";
+    updateTodoStatus(id, newStatus);
+  };
 
   return (
     <div className="container">
@@ -60,7 +65,13 @@ const TodosTable = ({todos}) => {
             todos.map((todo, index) => (
               <tr key={index}>
                 <th scope="row">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={todo.status == "completed"}
+                    onChange={() => {
+                      handleStatusChange(todo.id, todo.status);
+                    }}
+                  />
                 </th>
                 <td>{todo.title}</td>
                 <td>{email}</td>
@@ -69,93 +80,91 @@ const TodosTable = ({todos}) => {
                   {todo.date} <br /> {todo.time}
                 </td>
                 <td>
-                
-                    <button
-                      type="button"
-                      className="btn btn-primary mx-2"
-                      data-bs-toggle="modal"
-                      data-bs-target="#editModal"
-                      onClick={() => handleEdit(todo)}
-                    >
-                      <FaPenAlt />
-                    </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary mx-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editModal"
+                    onClick={() => handleEdit(todo)}
+                  >
+                    <FaPenAlt />
+                  </button>
 
-                 
-                    <div
-                      className="modal fade"
-                      id="editModal"
-                      tabIndex={-1}
-                      aria-labelledby="exampleModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
-                          <div className="modal-header">
-                            <h1
-                              className="modal-title fs-5"
-                              id="exampleModalLabel"
-                            >
-                              Edit ToDo
-                            </h1>
+                  <div
+                    className="modal fade"
+                    id="editModal"
+                    tabIndex={-1}
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div className="modal-dialog modal-dialog-centered">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h1
+                            className="modal-title fs-5"
+                            id="exampleModalLabel"
+                          >
+                            Edit ToDo
+                          </h1>
+                          <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          />
+                        </div>
+                        <form onSubmit={handleSubmit}>
+                          <div className="modal-body d-flex flex-column align-items-center justify-content-center">
+                            <div>
+                              <label htmlFor="" className="mx-2">
+                                Task Name:
+                              </label>
+                              <input
+                                type="text"
+                                placeholder="name"
+                                name="title"
+                                value={taskName}
+                                onChange={(e) => setTaskName(e.target.value)}
+                              />
+                            </div>
+                            <div className="text-start my-5">
+                              <label htmlFor="" className="mx-2">
+                                Pick a date:
+                              </label>
+                              <input
+                                type="date"
+                                name="date"
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                              />
+                            </div>
+                            <div>
+                              <label htmlFor="" className="mx-2">
+                                Pick your time:
+                              </label>
+                              <input
+                                type="time"
+                                name="time"
+                                value={time}
+                                onChange={(e) => setTime(e.target.value)}
+                              />
+                            </div>
+                          </div>
+                          <div className="modal-footer">
                             <button
-                              type="button"
-                              className="btn-close"
+                              type="submit"
                               data-bs-dismiss="modal"
                               aria-label="Close"
-                            />
+                              className="btn btn-primary"
+                            >
+                              Update
+                            </button>
                           </div>
-                          <form onSubmit={handleSubmit}>
-                            <div className="modal-body d-flex flex-column align-items-center justify-content-center">
-                              <div>
-                                <label htmlFor="" className="mx-2">
-                                  Task Name:
-                                </label>
-                                <input
-                                  type="text"
-                                  placeholder="name"
-                                  name="title"
-                                  value={taskName}
-                                  onChange={(e) => setTaskName(e.target.value)}
-                                />
-                              </div>
-                              <div className="text-start my-5">
-                                <label htmlFor="" className="mx-2">
-                                  Pick a date:
-                                </label>
-                                <input
-                                  type="date"
-                                  name="date"
-                                  value={date}
-                                  onChange={(e) => setDate(e.target.value)}
-                                />
-                              </div>
-                              <div>
-                                <label htmlFor="" className="mx-2">
-                                  Pick your time:
-                                </label>
-                                <input
-                                  type="time"
-                                  name="time"
-                                  value={time}
-                                  onChange={(e) => setTime(e.target.value)}
-                                />
-                              </div>
-                            </div>
-                            <div className="modal-footer">
-                              <button
-                                type="submit"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                                className="btn btn-primary"
-                              >
-                                Update
-                              </button>
-                            </div>
-                          </form>
-                        </div>
+                        </form>
                       </div>
                     </div>
-              
+                  </div>
+
                   <button
                     className="btn btn-danger"
                     onClick={() => {

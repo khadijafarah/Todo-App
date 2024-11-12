@@ -10,11 +10,12 @@ import ForgetPassword from "./Components/pages/ForgetPassword";
 import ResetPassWord from "./Components/pages/ResetPassWord";
 import Verification from "./Components/pages/Verification";
 import Home from "./Components/pages/ToDo/Home";
-import Completed from "./Components/pages/Completed";
-import Pending from "./Components/pages/Pending";
-import Overdue from "./Components/pages/Overdue";
+import Completed from "./Components/pages/ToDoFeatures/Completed";
+import Pending from "./Components/pages/ToDoFeatures/Pending";
+import Overdue from "./Components/pages/ToDoFeatures/Overdue";
 import { Toaster } from "react-hot-toast";
 import TodoContext from "./Components/pages/TodoContext";
+import Today from "./Components/pages/ToDoFeatures/Today";
 
 // import "./styles/components/main.scss"
 const router = createBrowserRouter([
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home></Home>,
+    element:<Home></Home>,
   },
   {
     path: "/completed",
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/today",
-    element: <Home></Home>,
+    element: <Today></Today>,
   },
 ]);
 
