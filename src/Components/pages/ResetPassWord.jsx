@@ -5,25 +5,27 @@ import { MdOutlineLock } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const ResetPassWord = () => {
-
+  const [form] = Form.useForm(); /*creates a form instance*/
   const location = useLocation();
   const params = new URLSearchParams(location.search).get("email");
-  const [otp,setOtp] = useState();
+  const [otp, setOtp] = useState();
   const [email, setEmail] = useState("");
-  const [resetPassword,setResetPassword] = useState ("");
+  const [resetPassword, setResetPassword] = useState("");
   const navigate = useNavigate();
 
-  useEffect (()=>{
-   if(params){
-    setEmail(params)
-   }
-  },[params])
-  const onFinish = async(values) => {
-
+  useEffect(() => {
+    if (params) {
+      setEmail(params);
+      form.setFieldsValue({
+        email: params,
+      }); /* adding this line to update the form inital value*/
+    }
+  }, [params]);
+  const onFinish = async (values) => {
     const data = {
-      otp : values.otp,
-      email :values.email,
-      password:values.password
+      otp: values.otp,
+      email: values.email,
+      password: values.password,
     };
 
     try {
@@ -32,13 +34,12 @@ const ResetPassWord = () => {
         data
       );
       console.log(response);
-      if(response?.data?.success){
-        navigate("/sign-in")
+      if (response?.data?.success) {
+        navigate("/sign-in");
       }
     } catch (error) {
       console.log("error", error);
     }
-
 
     console.log("Success:", values);
   };
@@ -50,11 +51,12 @@ const ResetPassWord = () => {
     <div className="forgetpass-container">
       <div className="forgetpass-form-container">
         <Form
+          form={form} /*pasinh the form as a property */
           className="resetpass-form"
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           name="auth-form"
-          initialValues={{email:email}}
+          initialValues={{ email: email }}
         >
           <h3>Reset Password</h3>
           <p>Setting Password for test123@gmail.com</p>
@@ -68,8 +70,8 @@ const ResetPassWord = () => {
             ]}
           >
             <Input
-               value={otp}
-               onChange={(e) => setOtp(e.target.value)}
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
               prefix={<MdOutlineLock size={20} />}
               type="number"
               placeholder="Enter OTP"
@@ -86,8 +88,8 @@ const ResetPassWord = () => {
             ]}
           >
             <Input
-             value={email}
-             onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               prefix={<MdOutlineLock size={20} />}
               type="email"
               placeholder="Enter email"
@@ -104,8 +106,8 @@ const ResetPassWord = () => {
             ]}
           >
             <Input
-             value={resetPassword}
-             onChange={(e) => setResetPassword(e.target.value)}
+              value={resetPassword}
+              onChange={(e) => setResetPassword(e.target.value)}
               prefix={<MdOutlineLock size={20} />}
               type="password"
               placeholder="New password"

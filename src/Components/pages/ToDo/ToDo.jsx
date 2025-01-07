@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 // import toast from "react-hot-toast";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { ToDoCreateContext } from "../TodoContext";
 
 const ToDo = () => {
@@ -9,33 +9,6 @@ const ToDo = () => {
   const [time, setTime] = useState("");
   const { addTodo } = useContext(ToDoCreateContext);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const todo = {
-  //       title: taskName,
-  //       date: date,
-  //       time: time,
-  //       status: "pending"
-  //   }
-  //   let existingTodos;
-  //   try {
-  //     existingTodos = JSON.parse(localStorage.getItem('todos')) || [];
-  //     if (!Array.isArray(existingTodos)) {
-  //       existingTodos = []; // Ensure it's an array
-  //     }
-  //   } catch (error) {
-  //     existingTodos = []; // Default to an empty array if JSON parsing fails
-  //   }
-
-  //   console.log(todo);
-  //   const todosString = JSON.stringify(todo);
-  //   existingTodos.push(todosString);
-  //   localStorage.setItem('todos', existingTodos );
-  //   toast.success('Successfully added!')
-
-  //  console.log(existingTodos);
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const todo = {
@@ -43,42 +16,19 @@ const ToDo = () => {
       title: taskName,
       date: date,
       time: time,
-      status: "pending",
+      status:"pending",
     };
 
     addTodo(todo);
-
     setTaskName("");
     setDate("");
     setTime("");
-
-    // Retrieve existing todos from local storage or initialize as an empty array
-    // let existingTodos;
-
-    //   existingTodos = JSON.parse(localStorage.getItem('todos')) || [];
-    //   if (!Array.isArray(existingTodos)) {
-    //     existingTodos = []; // Ensure it's an array
-
-    // }
-
-    // // Add the new todo directly to the existing todos array
-    // existingTodos.push(todo);
-
-    // // Save the updated todos array back to local storage as a string
-    // // localStorage.setItem('todos', JSON.stringify(existingTodos));
-
-    // // Notify the user
-    // toast.success('Successfully added!');
   };
 
   return (
     <div className="container">
       <div className="btn-section">
         <div className="buttons d-flex gap-2">
-          {/* <button className="todo-btn">< style={{textDecoration:"none"}}>Today</></button>
-        <button className="todo-btn"><Link style={{textDecoration:"none"}}>Pending</Link></button>
-        <button className="todo-btn"><Link style={{textDecoration:"none"}}>Overdue</Link></button>
-        <button className="todo-btn"><Link style={{textDecoration:"none"}}>Completed</Link></button> */}
           <NavLink
             to="/today"
             className={({ isActive, isPending }) =>
@@ -130,11 +80,13 @@ const ToDo = () => {
           >
             Completed
           </NavLink>
+          <Link to={"/sign-in"}><button style={{marginLeft:"578px", backgroundColor:"rgb(64, 169, 250)" , padding:"10px 36px", border:"none",color:"rgb(0, 54, 206)", fontWeight:"bolder", borderRadius:"8px"}}>Sign Out</button></Link>
         </div>
+        
       </div>
       <div className="tasks-section d-flex justify-content-between my-4">
         <div>
-          <h4>Tasks</h4>
+          <h4 style={{fontWeight:"bolder"}}>Tasks</h4>
         </div>
         <div>
           {/* <button className="addtask-btn">Add Task</button> */}

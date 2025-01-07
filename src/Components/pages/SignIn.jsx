@@ -103,7 +103,7 @@ const SignIn = () => {
             </Form.Item>
             <input type="checkbox" className="mx-2" /><label>Keep signed in to stay connected</label>
             <button className="form-btn my-3 ">Sign in</button>
-            <p className="text-center">Dont have an account ? <Link> Sign Up</Link></p>
+            <p className="text-center">Dont have an account ? <Link to={"/sign-up"}> Sign Up</Link></p>
             <Divider></Divider>
            <p className="text-center fs-6 fw-bold"> <Link to={"/forget-password"}>Forget Password</Link></p>
         </Form>
