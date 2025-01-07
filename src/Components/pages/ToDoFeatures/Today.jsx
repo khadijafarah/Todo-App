@@ -2,10 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import ToDo from "../ToDo/ToDo";
 
-
 import { ToDoCreateContext } from "../TodoContext";
 import TodosTable from "../TodosTable";
-
 
 const Today = () => {
   const { todos } = useContext(ToDoCreateContext);
@@ -42,6 +40,3 @@ const Today = () => {
 };
 
 export default Today;
-
-
-

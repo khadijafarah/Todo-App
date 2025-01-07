@@ -2,12 +2,9 @@ import { useContext, useEffect, useState } from "react";
 // import ToDo from "./ToDo/ToDo";
 import dayjs from "dayjs";
 
-
 import ToDo from "../ToDo/ToDo";
 import { ToDoCreateContext } from "../TodoContext";
 import TodosTable from "../TodosTable";
-
-
 
 const Pending = () => {
   const { todos } = useContext(ToDoCreateContext);
@@ -39,7 +36,6 @@ const Pending = () => {
       </div>
       <ToDo></ToDo>
       <TodosTable todos={pendingTodo}></TodosTable>
-      
     </>
   );
 };

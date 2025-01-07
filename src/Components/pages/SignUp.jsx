@@ -6,10 +6,9 @@ import { TiMail } from "react-icons/ti";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
 import { MdOutlineLock } from "react-icons/md";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Verification from "./Verification";
-
 
 const SignUp = () => {
   // const navigate = useNavigate();
@@ -17,41 +16,14 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [isOtpSend, setIsOtpSend] = useState(false);
-  // const [otp, setOtp] = useState("");
-  // const navigate = useNavigate();
 
-
-
-  // const handleOTP = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const data = {
-  //       otp,
-  //       email,
-  //     };
-  // console.log(data);
-  //     const response = await axios.post(
-  //       "https://staging-be-ecom.techserve4u.com/api/user/verifyotp",
-  //       data
-  //     );
-  //     console.log("otp", response);
-  //     if(response.data.token){
-  //       localStorage.setItem("token",response.data.token)
-  //       navigate("/sign-in");
-
-  //     }
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  // };
-  const onFinish = async(values) => {
+  const onFinish = async (values) => {
     const data = {
-      name :values.name,
-      password :values.password,
-      email :values.email,
+      name: values.name,
+      password: values.password,
+      email: values.email,
     };
     try {
-    
       const response = await axios.post(
         "https://staging-be-ecom.techserve4u.com/api/user/signup",
         data
@@ -64,7 +36,6 @@ const SignUp = () => {
     } catch (error) {
       console.log("error", error);
     }
-   
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -78,7 +49,6 @@ const SignUp = () => {
       ) : (
         <div className="signup-form-container">
           <Form
-    
             className="signup-form"
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -86,19 +56,14 @@ const SignUp = () => {
           >
             <h3>Create New Account</h3>
             <p>To stay connected with us, please sign up.</p>
-            <Form.Item
-              name="Google"
-            >
+            <Form.Item name="Google">
               <Input
-
                 prefix={<FcGoogle size={20} />}
                 placeholder="Continue With Google"
                 className="input-box"
               ></Input>
             </Form.Item>
-            <Form.Item
-              name="Apple"
-            >
+            <Form.Item name="Apple">
               <Input
                 prefix={<IoLogoApple size={20} />}
                 placeholder="Continue With Apple"
@@ -153,8 +118,8 @@ const SignUp = () => {
               ]}
             >
               <Input
-                 value={password}
-                 onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 prefix={<MdOutlineLock size={20} />}
                 type="password"
                 placeholder="Enter password"
@@ -165,10 +130,10 @@ const SignUp = () => {
             <label>Keep signed in to stay connected</label>
             <button className="form-btn my-3">Sign Up</button>
             <p className="text-center my-5">
-              Already have an account? <Link to="/sign-in">Sign In</Link> <br /> By clicking, Sign In , You agree to our Terms of <br /> Use and
+              Already have an account? <Link to="/sign-in">Sign In</Link> <br />{" "}
+              By clicking, Sign In , You agree to our Terms of <br /> Use and
               Privacy Policy
             </p>
-
           </Form>
         </div>
       )}

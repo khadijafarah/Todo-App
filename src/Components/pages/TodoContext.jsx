@@ -2,6 +2,7 @@ import { jwtDecode } from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+//using export keyword, its exporting so other components can import data 
 export const ToDoCreateContext = createContext();
 
 // eslint-disable-next-line react/prop-types
@@ -14,8 +15,6 @@ const TodoContext = ({ children }) => {
     setTodos(existingTodos);
   }, []);
   
-
-
 const addTodo = (todo) => {
   let existingTodos = JSON.parse(localStorage.getItem("todos")) || [];
   if (!Array.isArray(existingTodos)) {

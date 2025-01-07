@@ -19,9 +19,9 @@ const ForgetPassword = () => {
         data
       );
       console.log(response);
-      if(response?.data?.isOtpSend){
+      if (response?.data?.isOtpSend) {
         setIsOtpSend(true);
-        navigate(`/reset-password?email=${values.email}`)
+        navigate(`/reset-password?email=${values.email}`);
       }
     } catch (error) {
       console.log("error", error);
@@ -30,6 +30,7 @@ const ForgetPassword = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  console.log(isOtpSend);
   return (
     <div className="forgetpass-container">
       <div className="forgetpass-form-container">
